@@ -1,0 +1,10 @@
+<ActionBar title="Detail" icon="" class="action-bar">
+    <NavigationButton text="Back" android.systemIcon="ic_menu_back" [nsRouterLink]="['/heroes']"></NavigationButton>
+</ActionBar>
+<StackLayout *ngIf="hero">
+    <Label [text]="hero.name" textWrap="true"></Label>
+    <StackLayout>
+        <Image [src]="hero.image.path+hero.image.size+hero.image.extension" stretch="aspectFit"></Image>
+    </StackLayout>
+    <ActivityIndicator [busy]="isLoading" width="50" height="50"></ActivityIndicator>
+</StackLayout>
