@@ -30,7 +30,6 @@ export class HeroDetailComponent implements OnInit {
         this.getHero(this.id);
 
     }
-
     getHero(id: number) {
         this.heroService.getHero(id)
             .subscribe(data => {
