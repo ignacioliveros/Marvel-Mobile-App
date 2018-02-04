@@ -45,3 +45,8 @@ Thumbs.db
 .vscode/launch.json
 /.vscode
 /platforms
+*.js
+/app/*.js
+**.css
+**.js
+app/**.js

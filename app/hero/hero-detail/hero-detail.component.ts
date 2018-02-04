@@ -8,7 +8,8 @@ import { Hero } from '../hero-model/hero';
 @Component({
     moduleId: module.id,
     selector: 'ns-hero-detail',
-    templateUrl: './hero-detail.component.html'
+    templateUrl: './hero-detail.component.html',
+    styleUrls: ['./hero-detail.component.css']
 })
 
 export class HeroDetailComponent implements OnInit {
@@ -25,13 +26,17 @@ export class HeroDetailComponent implements OnInit {
         this.pageRoute.activatedRoute
             .switchMap(activatedRoute => activatedRoute.params)
             .forEach((params) => { this.id = +params["id"]; });
+        this.isLoading = true;
         this.getHero(this.id);
+
     }
 
     getHero(id: number) {
         this.heroService.getHero(id)
             .subscribe(data => {
                 this.hero = data.hero;
+            }, error => console.log(error),
+            () => {
                 this.isLoading = false;
             });
     }

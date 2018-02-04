@@ -2,7 +2,7 @@
 
 </ActionBar>
 
-<ListView [items]="heroes" class="list-group">
+<ListView [items]="heroes" class="bg list-group">
     <ng-template let-item="item">
         <GridLayout [nsRouterLink]="['/heroes', item.id]" rows="100" columns="100,*">
             <Image col="0" [src]="item.image.path+item.image.size+item.image.extension" stretch="aspectFit"></Image>
