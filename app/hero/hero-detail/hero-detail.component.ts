@@ -33,12 +33,12 @@ export class HeroDetailComponent implements OnInit {
     }
 
     onBack() {
-        this.routerExtensions.navigate(["/heroes"], {
+        this.routerExtensions.back(), {
             transition: {
                 name: "slideLeft",
                 curve: enums.AnimationCurve.easeIn
             }
-        });
+        };
     }
 
     getHero(id: number) {

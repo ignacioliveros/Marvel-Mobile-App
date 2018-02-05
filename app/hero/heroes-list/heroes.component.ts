@@ -16,40 +16,70 @@ import { HeroService } from '../hero-services/hero-services';
 export class HeroesComponent implements OnInit {
     constructor(private heroService: HeroService, private routerExtensions: RouterExtensions) { }
 
-    heroes: Hero[] = [];
+    heroes: Hero[] = new Array<Hero>();
     isLoading: boolean = true;
     isSearching: boolean = false;
-    current: number = 0;
+    currentScrollPoint: number = 0;
+    offset: number = 0;
+    offsetScrollPoint: number = 1000;
+
     ngOnInit() {
         this.getHeroes()
     }
 
     onTextChanged(args) {
         let searchBar = <SearchBar>args.object;
-        this.getHeroes(searchBar.text);
+        if (searchBar.text) {
+            this.getHeroesByName(searchBar.text);
+        } else {
+            this.heroes = [];
+            this.getHeroes();
+        }
+
     }
 
     public onScroll(args: ScrollEventData) {
         let scrollY = args.scrollY;
-        if (this.current > scrollY) {
-            console.log('scroll up');
-            this.current = scrollY;
+        if (this.currentScrollPoint > scrollY) { // check if scroll up           
+            this.currentScrollPoint = scrollY;
         }
-        if (this.current < scrollY) {
-            console.log('scroll down');
-            this.current = scrollY;
+        if (this.currentScrollPoint < scrollY) {  // check if scroll down            
+            this.currentScrollPoint = scrollY;
+            if (this.currentScrollPoint > this.offsetScrollPoint) {
+                this.offsetScrollPoint += 1000;
+                this.offset += 20;
+                this.getHeroes();
+                this.isLoading = true;
+            }
         }
     }
 
-    getHeroes(name?: string) {
-        this.heroService.getHeroes(0, name)
+    getHeroes() {
+        this.heroService.getHeroes(this.offset)
             .subscribe(data => {
-                this.heroes = data.heros;
+                for (let hero of data.heros) {
+                    this.heroes.push(hero);
+                }
             }, error => console.log(error),
             () => {
                 this.isLoading = false;
             }
             );
+    }
+
+    getHeroesByName(name) {
+        if (name) {
+            this.offset = 0;
+            this.offsetScrollPoint = 1000;
+            this.heroService.getHeroes(this.offset, name)
+                .subscribe(data => {
+                    this.heroes = data.heros;
+                }, error => console.log(error),
+                () => {
+                    this.isLoading = false;
+                }
+                );
+        }
     }
 
     onSearch() {

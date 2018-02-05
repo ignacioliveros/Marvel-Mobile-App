@@ -5,10 +5,10 @@
 </ActionBar>
 <ScrollView (scroll)="onScroll($event)">
     <StackLayout class="bg list-group">
-        <ActivityIndicator *ngIf="isLoading" [busy]="isLoading" width="50" height="50"></ActivityIndicator>
         <GridLayout *ngFor="let item of heroes" (tap)="onNavigate(item.id)" class="item" rows="80" columns="auto,*">
             <Image col="0" [src]="item.image.path+item.image.size+item.image.extension" stretch="aspectFit"></Image>
             <Label col="1" [text]="item.name.toUpperCase()" class="list-group-item"></Label>
         </GridLayout>
+        <ActivityIndicator *ngIf="isLoading" [busy]="isLoading" width="50" height="50"></ActivityIndicator>
     </StackLayout>
 </ScrollView>
