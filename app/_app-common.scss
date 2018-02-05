@@ -4,6 +4,10 @@
 @import '~nativescript-theme-core/scss/dark';
 
 // Customize any of the theme’s variables here, for instance $btn-color: red;
+$background:#a53831;
+$primary:#e5dcd3;
+$ab-background:#2b4657;
+$ab-color: $primary ;
 
 // Import the theme’s main ruleset.
 @import '~nativescript-theme-core/scss/index';

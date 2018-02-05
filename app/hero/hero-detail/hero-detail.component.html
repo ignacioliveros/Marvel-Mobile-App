@@ -1,13 +1,10 @@
 <ActionBar [title]="hero?.name" icon="" class="action-bar">
-    <NavigationButton text="Back" android.systemIcon="ic_menu_back" [nsRouterLink]="['/heroes']"></NavigationButton>
+    <NavigationButton text="Back" android.systemIcon="ic_menu_back" (tap)="onBack()"></NavigationButton>
 </ActionBar>
 <ScrollView orientation="vertical">
     <ActivityIndicator [busy]="isLoading" width="50" height="50"></ActivityIndicator>
     <StackLayout *ngIf="hero" class="bg">
-        <!-- <StackLayout>
-            <Label class="title text-center" [text]="hero.name" textWrap="true"></Label>
-        </StackLayout> -->
-        <StackLayout class="image hr-dark">
+        <StackLayout class="image">
             <Image [src]="hero.image.path+hero.image.size+hero.image.extension" stretch="aspectFit"></Image>
         </StackLayout>
         <StackLayout class="m-20">

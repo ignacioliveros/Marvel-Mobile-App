@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PageRoute } from "nativescript-angular/router";
+import { PageRoute, RouterExtensions } from "nativescript-angular/router";
+import * as enums from 'ui/enums'
 import "rxjs/add/operator/switchMap";
 
 import { HeroService } from '../hero-services/hero-services';
@@ -18,7 +19,7 @@ export class HeroDetailComponent implements OnInit {
     id: number;
     isLoading: boolean = true;
 
-    constructor(private pageRoute: PageRoute, private heroService: HeroService) {
+    constructor(private pageRoute: PageRoute, private heroService: HeroService, private routerExtensions: RouterExtensions) {
 
     }
 
@@ -30,6 +31,16 @@ export class HeroDetailComponent implements OnInit {
         this.getHero(this.id);
 
     }
+
+    onBack() {
+        this.routerExtensions.navigate(["/heroes"], {
+            transition: {
+                name: "slideLeft",
+                curve: enums.AnimationCurve.easeIn
+            }
+        });
+    }
+
     getHero(id: number) {
         this.heroService.getHero(id)
             .subscribe(data => {

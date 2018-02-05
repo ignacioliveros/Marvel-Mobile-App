@@ -15,7 +15,7 @@ const security = 'ts=1517104251&apikey=8ba269f53b575b7f50733326f96d8fa1&hash=794
 export class HeroService {
     constructor(private http: HttpClient) { }
 
-    getHeros(offset: number, name?: string): Observable<HeroesViewModel> {
+    getHeroes(offset: number, name?: string): Observable<HeroesViewModel> {
         if (name) {
             return this.http.get(`${url}?nameStartsWith=${name}&limit=20&offset=${offset}&${security}`)
                 .pipe(
@@ -25,7 +25,7 @@ export class HeroService {
             return this.http.get(`${url}?limit=20&offset=${offset}&${security}`)
                 .pipe(
                 map(data => data = this.mappingToHeroViewModel(data),
-                    catchError(error => of(console.log('aca')))
+                    catchError(error => of(console.log(error)))
                 ));
         }
 

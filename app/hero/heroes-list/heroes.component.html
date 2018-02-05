@@ -1,12 +1,14 @@
 <ActionBar title="Marvel App" class="action-bar">
-
+    <ActionItem (tap)="onSearch()" ios.systemIcon="12" ios.position="left" android.systemIcon="ic_menu_search" android.position="actionBar"></ActionItem>
+    <SearchBar *ngIf="isSearching" class="searchBar" hint="Hero Name" [text]="searchPhrase" textFieldBackgroundColor="#e5dcd3"
+        color="black" textFieldHintColor="#a53831" (textChange)="onTextChanged($event)"></SearchBar>
 </ActionBar>
-
-<ListView [items]="heroes" class="bg list-group">
-    <ng-template let-item="item">
-        <GridLayout [nsRouterLink]="['/heroes', item.id]" rows="100" columns="100,*">
+<ScrollView (scroll)="onScroll($event)">
+    <StackLayout class="bg list-group">
+        <ActivityIndicator *ngIf="isLoading" [busy]="isLoading" width="50" height="50"></ActivityIndicator>
+        <GridLayout *ngFor="let item of heroes" (tap)="onNavigate(item.id)" class="item" rows="80" columns="auto,*">
             <Image col="0" [src]="item.image.path+item.image.size+item.image.extension" stretch="aspectFit"></Image>
             <Label col="1" [text]="item.name.toUpperCase()" class="list-group-item"></Label>
         </GridLayout>
-    </ng-template>
-</ListView>
+    </StackLayout>
+</ScrollView>

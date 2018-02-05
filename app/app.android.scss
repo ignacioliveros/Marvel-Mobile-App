@@ -11,8 +11,9 @@ refer to http://docs.nativescript.org/ui/theme.
 */
 
 
-@import 'app-common';
+@import '_app-common';
 @import '~nativescript-theme-core/scss/platforms/index.android';
+
 
 .bg{
     background-color:$background ;
