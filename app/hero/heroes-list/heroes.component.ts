@@ -22,6 +22,7 @@ export class HeroesComponent implements OnInit {
     currentScrollPoint: number = 0;
     offset: number = 0;
     offsetScrollPoint: number = 1000;
+    name: string = '';
 
     ngOnInit() {
         this.getHeroes()
@@ -29,6 +30,7 @@ export class HeroesComponent implements OnInit {
 
     onTextChanged(args) {
         let searchBar = <SearchBar>args.object;
+        this.name = searchBar.text;
         if (searchBar.text) {
             this.getHeroesByName(searchBar.text);
         } else {
@@ -38,24 +40,24 @@ export class HeroesComponent implements OnInit {
 
     }
 
-    public onScroll(args: ScrollEventData) {
+    public onScrollPagination(args: ScrollEventData) {
         let scrollY = args.scrollY;
-        if (this.currentScrollPoint > scrollY) { // check if scroll up           
+        if (this.currentScrollPoint > scrollY) {    // check if scroll up           
             this.currentScrollPoint = scrollY;
         }
-        if (this.currentScrollPoint < scrollY) {  // check if scroll down            
+        if (this.currentScrollPoint < scrollY) {    // check if scroll down            
             this.currentScrollPoint = scrollY;
             if (this.currentScrollPoint > this.offsetScrollPoint) {
                 this.offsetScrollPoint += 1000;
                 this.offset += 20;
-                this.getHeroes();
                 this.isLoading = true;
+                this.getHeroes();
             }
         }
     }
 
     getHeroes() {
-        this.heroService.getHeroes(this.offset)
+        this.heroService.getHeroes(this.offset, this.name)
             .subscribe(data => {
                 for (let hero of data.heros) {
                     this.heroes.push(hero);
