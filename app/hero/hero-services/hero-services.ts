@@ -52,7 +52,7 @@ export class HeroService {
             })
         }
         herosViewModel = {
-            heros: heros,
+            heroes: heros,
             collectionSize: Math.round(data['data'].total / 20)
         }
         return herosViewModel;

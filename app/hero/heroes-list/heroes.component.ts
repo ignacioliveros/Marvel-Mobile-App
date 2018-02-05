@@ -59,7 +59,7 @@ export class HeroesComponent implements OnInit {
     getHeroes() {
         this.heroService.getHeroes(this.offset, this.name)
             .subscribe(data => {
-                for (let hero of data.heros) {
+                for (let hero of data.heroes) {
                     this.heroes.push(hero);
                 }
             }, error => console.log(error),
@@ -75,7 +75,7 @@ export class HeroesComponent implements OnInit {
             this.offsetScrollPoint = 1000;
             this.heroService.getHeroes(this.offset, name)
                 .subscribe(data => {
-                    this.heroes = data.heros;
+                    this.heroes = data.heroes;
                 }, error => console.log(error),
                 () => {
                     this.isLoading = false;

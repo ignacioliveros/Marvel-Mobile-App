@@ -12,7 +12,7 @@ export interface Image {
 }
 
 export interface HeroesViewModel {
-    heros: Hero[];
+    heroes: Hero[];
     collectionSize: number;
 }
 
